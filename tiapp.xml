@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-api-key-production" type="string">z8640KziazugvJ1deNWroElvkkliWkax</property>
+    <property name="acs-api-key-development" type="string">4RPY0CyChEiSvH9lbTze8UEHXXfWrLTK</property>
+    <!-- we add this in for facebook compatibility in iOS 
+         Presently, we do not have a facebook app id -->
+    <property name="ti.facebook.appid">280856088781023</property>
+    <id>edu.wtamu.cis.cidm4385.Tigram</id>
+    <name>CIDM4385_Chapter05_To_13_Tigram</name>
+    <version>1.0</version>
+    <publisher>jeff</publisher>
+    <url>http://www.cis.wtamu.edu</url>
+    <description>TiGram app from book</description>
+    <copyright>2015 by jeff</copyright>
+    <icon>appicon.png</icon>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>false</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>3c3be5c3-89d7-42a7-ae12-707ab7584c36</guid>
+    <property name="ti.ui.defaultunit" type="string">dp</property>
+    <ios>
+        <plist>
+            <dict>
+                <key>UISupportedInterfaceOrientations~iphone</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~ipad</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+                    <string>UIInterfaceOrientationLandscapeLeft</string>
+                    <string>UIInterfaceOrientationLandscapeRight</string>
+                </array>
+                <key>UIRequiresPersistentWiFi</key>
+                <false/>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>UIStatusBarHidden</key>
+                <false/>
+                <key>UIStatusBarStyle</key>
+                <string>UIStatusBarStyleDefault</string>
+            </dict>
+        </plist>
+    </ios>
+    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <mobileweb>
+        <precache/>
+        <splash>
+            <enabled>true</enabled>
+            <inline-css-images>true</inline-css-images>
+        </splash>
+        <theme>default</theme>
+    </mobileweb>
+    <modules>
+        <module platform="commonjs">ti.cloud</module>
+	
+	    <!-- Added to utilize the facebook module
+	         For the Titanium SDK versions 3.1 and higher -->
+	    <module platform="android">facebook</module>
+	    <module platform="iphone">facebook</module>
+    </modules>
+    <deployment-targets>
+        <target device="iphone">false</target>
+        <target device="ipad">false</target>
+        <target device="android">true</target>
+        <target device="blackberry">false</target>
+        <target device="mobileweb">true</target>
+    </deployment-targets>
+    <sdk-version>3.5.1.GA</sdk-version>
+    <plugins>
+        <plugin version="1.0">ti.alloy</plugin>
+    </plugins>
+</ti:app>

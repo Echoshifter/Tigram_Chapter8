@@ -1,0 +1,10 @@
+<Alloy>
+	<Window id="commentWindow" title="Comments" onOpen="doOpen">
+		<!-- by placing a platform attribute, we indicate that this
+		     UI element is only intended to work on the ios platform -->
+		<RightNavButton platform="ios">
+			<Button id="newCommentButton">Comment</Button>
+		</RightNavButton>
+		<TableView id="commentTable"></TableView>
+	</Window>
+</Alloy>

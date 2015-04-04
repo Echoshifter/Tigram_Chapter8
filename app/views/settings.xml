@@ -1,0 +1,9 @@
+<!-- settings.xml 
+     building the settings view -->
+<Alloy>
+	<Tab title="Settings">
+		<Window title="Settings">
+			<Label>This is the Settings Tab</Label>
+		</Window>
+	</Tab>
+</Alloy>

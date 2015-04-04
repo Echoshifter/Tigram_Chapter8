@@ -1,0 +1,80 @@
+<!-- friends.xml
+building the friends view -->
+<Alloy>
+	<!-- as was the case very early in the book, we use Alloy Views XML to 
+	     establish what collection the Window/View should work with using the
+	     Collection element -->
+	<Collection src="user" instance="true" id="friendUserCollection"/>
+	<Tab title="Friends">
+		<Window title="Friends" id="friendsWindow">
+			<!-- used to toggle between different types of users -->
+			<View id="filterContainer">
+				<!-- in iOS it's so easy.  This is a tabbed bar to switch between all users
+				     and those you've selected to be in your friends list. NOTE: whether this control
+				     shows or not is determined by the "platform" attribute -->
+				<TabbedBar id="filter" platform="ios">
+					<Labels>
+						<Label>
+							Users
+						</Label>
+						<Label>
+							Friends
+						</Label>
+					</Labels>
+				</TabbedBar>
+				<!-- Handled quite differently in Android.  While Alloy and Titanium handle some of the 
+				     "Magic" required to handle cross-platform things, we still have to create "branches" 
+				     to handle each platform.  The advantage here (as is the case with all cross-platform approaches)
+				     is that we have a single codebase -->
+				<View id='androidPickerContainer' platform="android" >
+					<Picker id="filter" >
+						<PickerColumn id="column1" >
+							<PickerRow title="Users"/>
+							<PickerRow title="Friends"/>
+						</PickerColumn>
+					</Picker>
+				</View>
+			</View>
+			<!-- this all comes later in the chatper/book and is the detail for how each list item should be 
+			     displayed -->
+			<ListView id='listView'>
+				<!-- this is the templates container. In it we itendify the set of templates we'd like to use 
+				     with this list view.  The template determines how each list item will look -->
+				<Templates>
+					<!-- This template is for the full view of all users (however, your friends are filtered out) -->
+					<ItemTemplate name="fullItem" height="40dp" width="Ti.UI.FILL">
+						<View id="userView">
+							<ImageView bindId="userAvatar" id="userAvatar" />
+							<Label bindId="userName" id="userName"/>
+						</View>
+						<!-- notice that we specify the event-handler in the template -->
+						<Button title="Follow" class="actionBtn"
+						onClick="followBtnClicked"/>
+					</ItemTemplate>
+					<!-- This is the template we use to show only friends -->
+					<ItemTemplate name="friends" height="40dp" width="Ti.UI.FILL">
+						<View id="userView">
+							<ImageView bindId="userAvatar" id="userAvatar" />
+							<Label bindId="userName" id="userName"/>
+						</View>
+						<!-- notice that we specify the event-handler in the template -->						
+						<Button title="UnFollow" class="actionBtn"
+						onClick="followingBtnClicked"/>
+					</ItemTemplate>
+				</Templates>
+				<!-- The ListSection is very similar to the TableView. Items related to how the collection
+				     should be handled are here.  Some of this shows up later in the chapter --> 
+				<ListSection id="section" dataCollection="$.friendUserCollection"
+				dataTransform="doTransform"
+				dataFilter="doFilter">
+					<!-- Accordingly, we show each list item and make it clear that a template should be used 
+					     to specify how the list item should be displayed --> 
+					<ListItem template="{template}" userName:text="{title}"
+					userAvatar:image="{image}"
+					modelId="{modelId}">
+					</ListItem>
+				</ListSection>
+			</ListView>
+		</Window>
+	</Tab>
+</Alloy>
