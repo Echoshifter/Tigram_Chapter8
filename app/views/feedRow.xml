@@ -8,6 +8,7 @@
          <View id="buttonContainer">
            <Button id="commentButton">Comment</Button>
            <Button id="shareButton">Share</Button>
+           <Button id="locationButton">Location</Button>
          </View>
       </View>
    </TableViewRow>

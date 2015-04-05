@@ -132,6 +132,7 @@ _callback(photoObject);
  * @param {Object} _mediaObject object from the camera
  * @param {Function} _callback where to call when the function is completed
  */
+var geo = require("geo");
 function processImage(_mediaObject, _callback) {
 	var parameters = {
 		"photo" : _mediaObject,
@@ -141,6 +142,14 @@ function processImage(_mediaObject, _callback) {
 		// We need this since we are showing the image immediately
 		"photo_sync_sizes[]" : "preview"
 	};
+	
+	if (_coords) {
+		parameters.custom_fields = {
+			coordinates : [_coords.coords.longitude,
+			               _coords.coords.latitude],
+			               location_string: _coords.title
+		};
+	}
 
 	var photo = Alloy.createModel('Photo', parameters);
 
@@ -203,6 +212,118 @@ function loadPhotos() {
 	});
 }
 
+function handleLocationButtonClicked(_event) {
+	var collection = Alloy.Collections.instance("Photo");
+	var model = collection.get(_event.row.row_id);
+	
+	var customFields = model.get("custom_fields");
+	
+	if (customFields && customFields.coordinates) {
+		var mapController = Alloy.createController("mapView", {
+			photo : model,
+			parentController : $
+		});
+		
+		Alloy.Globals.openCurrentTabWindow(mapController.getView());
+	} else {
+		alert("No Location was saved with photo");
+	}
+}
+
+$.filter.addEventListener(OS_IOS ? 'click' : 'change', filterTabbedBarClicked);
+
+function filterTabbedBarClicked(_event) {
+	var itemSelected = OS_IOS ? _event.index : _event.rowIndex;
+	switch (itemSelected) {
+		case 0 :
+		$.mapview.visible = false;
+		$.feedTable.visible = true;
+		break;
+		case 1 :
+		$.feedTable.visible = false;
+		$.mapview.visible = true;
+		showLocalImages();
+		break;
+	}
+}
+
+function showLocalImages() {
+	
+	$.locationCollection = Alloy.createCollection('photo');
+	
+	geo.getCurrentLocation(function(_coords) {
+		var user = Alloy.Globals.currentUser;
+		
+		$.locationCollection.findPhotosNearMe(user, _coords, 5, {
+			success : function(_collection, _response) {
+				Ti.API.info(JSON.stringify(_collection));
+				
+				if(_collection.models.length) {
+					addPhotosToMap(_collection);
+				} else {
+					alert("No local images found");
+					filterTabbedBarClicked({
+						index : 0,
+						rowIndex : 0,
+					});
+					
+					if (OS_ANDROID) {
+						$.filter.setSelectedRow(0,0,false);
+						
+					} else {
+						$.filter.setIndex(0);
+					}
+				}
+			},
+			error : function(error) {
+				alert('Error loading feed' + e.message);
+				Ti.API.error(JSON.stringify(error));
+			}
+		});
+	});
+}
+
+function addPhotosToMap(_collection) {
+	var annotationArray = [];
+	var lastLat;
+	
+	$.mapview.removeAllAnnotations();
+	
+	var annotationRightButton = function() {
+		var button = Ti.UI.createButton({
+			title : "X",
+		});
+		return button;
+	};
+	
+	for (var i in _collection.models) {
+		var mapData = _collection.models[i].toJSON();
+		var coords = mapData.custom_fields.coordinates;
+		var annotation = Alloy.Globals.Map.createAnnotation({
+			latitude : Number(coords[0][1]),
+			longitude : Number(coords[0[0]]),
+			subtitle : mapData.custom_fields.location_string,
+			title : mapData.title,
+			data : _collection.models[i].clone()
+		});
+		
+		if (OS_IOS) {
+			annotation.setPincolor(Alloy.Globals.Map.ANNOTATION_RED);
+			annotation.setRightButton(Titanium.UI.iPhone.SystemButton.DISCLOSURE);
+		} else {
+			annotation.setRightButton(annotationRightButton);
+			
+		}
+		annotationArray.push(annotation);
+	}
+	
+	var region = geo.calculateMapRegion(annotationArray);
+	$.mapview.setRegion(region);
+	
+	$.mapview.setAnnotations(annotationArray);
+}
+
+$.mapview.addEventListener('click', mapAnnotationClicked);
 //load photos on startup
 $.initialize = function() {
   loadPhotos();

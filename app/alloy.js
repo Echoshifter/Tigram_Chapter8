@@ -15,3 +15,5 @@ Alloy.Globals.FB = require('facebook');
 
 // using our own CommonJS-exported progress window library
 Alloy.Globals.PW = require('progressWindow');
+
+Alloy.Globals.Map = require('ti.map');

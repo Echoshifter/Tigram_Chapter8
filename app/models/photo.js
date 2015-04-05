@@ -110,6 +110,48 @@ exports.definition = {
 	},
 	extendCollection : function(Collection) {
 		_.extend(Collection.prototype, {
+			
+			findPhotosNearMe : function(_user, _location, _distance, _options) {
+				var collection = this;
+				
+				var distance = _distance ? (_distance / 3959) : 0.00126;
+				
+				if (_location === null) {
+					_options.error("Could Not Find Photos");
+					return;
+				}
+				
+				_user.getFriends(function(_resp) {
+					if (_resp.success) { 
+						
+						var idList = _.pluck(_resp.collection.models, "id");
+						idList.push(_user.id);
+						
+						var coords = [];
+						coords.push(_location.coords.longitude);
+						coords.push(_location.coords.latitude);
+						
+						var where_params = {
+							"user_id" : {
+								"$in" : idList
+							},
+							"coordinates" : {
+								"$nearSphere" : coords,
+								"$maxDistance" : distance
+							}
+						};
+						
+						_options.data = _options.data || {};
+						_options.data.per_page = 25;
+						_options.data.where = JSON.stringify(where_params);
+						
+						collection.fetch(_options);
+					} else {
+						_options.error("Could not find photos");
+						return;
+					}
+				});
+			}
 			// extended functions and properties go here
 		});
 
