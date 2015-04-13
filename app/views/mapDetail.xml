@@ -1,4 +1,14 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<Window id="mainWindow" fullscreen="false">
+		<View class="container">
+			<Label id="titleLabel"></Label>
+			<View id="imageContainer">
+				<ImageView id="image"></ImageView>
+			</View>
+			<View id="buttonContainer">
+				<Button id="commentButton">Comment</Button>
+				<Button id="shareButton">Share</Button>
+			</View>
+		</View>
+	</Window>
 </Alloy>

@@ -1,6 +1,5 @@
 "#feedWindow" : {
-	layout : "vertical",
-	
+	layout : "vertical"
 },
 "#filterContainer" : {
 	top : "5dp",
@@ -11,15 +10,11 @@
 	style : Ti.UI.iPhone.SystemButtonStyle.BAR,
 	height : 30,
 	width : "70%"
-},
-"#filter[platform=android]" : {
-	height : "38dp",
-	width : "70%"
-},
-"#androidPickerContainer" : {
+}
+'#androidPickerContainer' : {
 	height : Ti.UI.SIZE,
 	width : Ti.UI.SIZE,
-	backgroundColor : 'A3A3A3'
+	backgroundColor : '#A3A3A3'
 },
 "#mapview" : {
 	width : "90%",

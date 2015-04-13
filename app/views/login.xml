@@ -9,7 +9,11 @@
 				<Label id='welcomeText'></Label>
 				<View id='hvButtonContainer'>
 					<Button id='showCreateAccountBtn' title="Create Account" />
+					
+					
 					<Button id='showLoginBtn' title="Login" />
+					
+					
 					<!-- for logging in with facebook -->
 					<Button id='showLoginFBBtn' title="Facebook Connect"/>
 				</View>

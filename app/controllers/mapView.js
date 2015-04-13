@@ -1,45 +1,51 @@
 var args = arguments[0] || {};
 
-var coords = args.photo.get("custom_fields") .coordinates[0];
+//get the photo object from the parameters
+var coords = args.photo.get("custom_fields").coordinates[0];
 var locationString = args.photo.get("custom_fields").location_string;
 
-var annotation = Alloy.Globals.Map.createAnnotation({
+//create annotation
+var annotation = Alloy.Globals.Map.createAnnotations({
 	latitude : Number(coords[1]),
 	longitude : Number(coords[0]),
 	title : args.photo.get("title"),
 	subtitle : locationString,
 	myid : args.photo.id
+	//leftView : imageView,
+	//animate : true
 });
-
+//set the header
 $.thumb.image = args.photo.get("urls")["preview"];
 $.title.text = args.photo.get("title");
-$.location.text = locationString;
+$.locations.text = locationString;
 
-$.mapView.setAnnotations([annotation]);
-
-$.mapView.setRegion({
+//add them to map
+$.mapview.setAnnotations([annotation]);
+//set the region around the photo
+$.mapview.setRegion({
 	latitude : annotation.latitude,
 	longitude : annotation.longitude,
 	latitudeDelta : 0.040,
 	longitudeDelta : 0.040
 });
 
-$.getView() .addEventListener("androidback", androidBackEventHandler);
-
+//detect click on back button
+$.getView().addEventListener("androidback", androidBackEventHandler);
+//handle the event and close the window
 function androidBackEventHandler(_event) {
 	_event.cancelBubble = true;
-	_event.Bubbles = false;
+	_event.bubbles = false;
 	$.getView().removeEventListener("androidback", androidBackEventHandler);
 	$.getView().close();
 }
 
-$.getView() .addEventListener("open", function() {
-	OS_ANDROID && ($.getView() .activity.onCreateOptionsMenu = function() {
+$.getView().addEventListener("open", function() {
+	OS_ANDROID && ($.getView().activity.onCreateOptionsMenu = function() {
 		var actionBar = $.getView().activity.actionBar;
 		if (actionBar) {
 			actionBar.displayHomeAsUp = true;
 			actionBar.onHomeIconItemSelected = function() {
-				$.getView() .removeEventListener("androidback", androidBackEventHandler);
+				$.getView().removeEventListener("androidback", androidBackEventHandler);
 				$.getView().close();
 			};
 		}

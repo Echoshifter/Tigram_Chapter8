@@ -1,4 +1,3 @@
-
 "#commentTable[platform=android]" : {
-  separatorColor : '#CCC'
+	separatorColor : '#ccc'
 }

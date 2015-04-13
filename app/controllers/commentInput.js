@@ -89,6 +89,6 @@ function doOpen() {
 	// use set time out to give window time to draw
 	setTimeout(function() {
 		$.commentContent.focus();
-	}, 400);
+	}, 250);
 
 };

@@ -10,10 +10,16 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-// Using FB module in the latest release of Appcelerator
+//using FB module in the latest release of Appcelerator
 Alloy.Globals.FB = require('facebook');
-
-// using our own CommonJS-exported progress window library
 Alloy.Globals.PW = require('progressWindow');
-
 Alloy.Globals.Map = require('ti.map');
+
+//if twitter is not loaded/initialized
+if (!Alloy.Globals.TW) {
+	var TAP = Ti.App.Properties;
+	Alloy.Globals.TW = require('social_wiley').create({
+		consumerSecret : TAP.getString('twitter.consumerSecret'),
+		consumerKey : TAP.getString('twitter.consumerKey')
+	});
+}
