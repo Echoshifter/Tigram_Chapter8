@@ -1,7 +1,12 @@
+<!-- index.xml -->
 <Alloy>
+	<!-- a tab group allows to switch between views using a tabbed interface -->
+	<!-- we add the onOpen event handling so that we can add in the ActionBar to the view -->
 	<TabGroup id="tabGroup" onOpen="doOpen">
-		<Require id="feedController" src="Feed" />
-		<Require id="friendsController" src="Friends" />
-		<Require id="settingsController" src="Settings" />
+		<!-- Tabs included using the require tag -->
+		<!-- src refers to the controller file, the id is for cross-controller referencing -->
+		<Require id="feedController" src="feed" />
+		<Require id="friendsController" src="friends" />
+		<Require id="settingsController" src="settings" />
 	</TabGroup>
 </Alloy>

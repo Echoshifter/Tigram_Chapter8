@@ -1,5 +1,7 @@
+<!-- feed.xml 
+     building the feed view -->
 <Alloy>
-	<Tab id="feedTab" title="Feed">
+	<Tab id="feedTable" title="Feed">
 		<Window id="feedWindow" title="Feed">
 			<RightNavButton platform="ios">
 				<Button id="cameraButton">Camera</Button>
@@ -12,7 +14,16 @@
 						<Label>Map</Label>
 					</Labels>
 				</TabbedBar>
-				<View id="androidPickerContainer" platfrom="android">
+			</View>
+			
+			<View id="filterContainer">
+				<TabbedBar id="filter" platform="ios">
+					<Labels>
+						<Label>List</Label>
+						<Label>Map</Label>
+					</Labels>
+				</TabbedBar>
+				<View id="androidPickerContainer" platform="android">
 					<Picker id="filter" selectionIndicator="true">
 						<PickerColumn id="column1">
 							<PickerRow title="List" />
@@ -21,7 +32,8 @@
 					</Picker>
 				</View>
 			</View>
-			<View id="viewContainer">			
+			
+			<View id="viewContainer">
 				<TableView id="feedTable"></TableView>
 				<View ns="Alloy.Globals.Map" id="mapview"></View>
 			</View>

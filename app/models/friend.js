@@ -7,17 +7,14 @@ exports.definition = {
 		}
 	},
 	extendModel: function(Model) {
-		_.extend(Model.prototype, {
-			// extended functions and properties go here
-		});
-
+		_.extend(Model.prototype, {});
+		// end extend
 		return Model;
 	},
+	
 	extendCollection: function(Collection) {
-		_.extend(Collection.prototype, {
-			// extended functions and properties go here
-		});
-
+		_.extend(Collection.prototype, {});
+		// end extend
 		return Collection;
 	}
 };

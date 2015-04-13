@@ -1,21 +1,23 @@
 <!-- Comment input -->
 <Alloy>
 	<NavigationWindow id="navWindow" platform="ios">
-		<Window id="mainWindow" title="New Comment" onOpen="doOpen">
-			<LeftNavButton>
+		<Window id="mainWindow" title="New Comment" onOpen="doOpen" >
+			<LeftNavButton >
 				<Button id="cancelButton">Cancel</Button>
 			</LeftNavButton>
 			<RightNavButton>
 				<Button id="saveButton">Save</Button>
 			</RightNavButton>
-			<TextArea id="commentContent" />
+			<TextArea id="commentContent"/>
 		</Window>
 	</NavigationWindow>
-	
-	<!--android window-->
-	<Window id="mainWindow" title="New Comment" onOpen="doOpen" platform="android">
+
+	<!-- ANDROID WINDOW -->
+	<!-- this will be increasingly common - having to have different 
+	     sections for cross-platform compatibility -->
+	<Window id="mainWindow" title="New Comment" onOpen="doOpen"  platform="android">
 		<ScrollView>
-			<TextArea id="commentContent" />
+			<TextArea id="commentContent"/>
 		</ScrollView>
 	</Window>
 </Alloy>

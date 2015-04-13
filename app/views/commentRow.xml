@@ -5,10 +5,11 @@
 			<View class="textContainer">
 				<View class="userInfo" layout="horizontal">
 					<Label id="userName" />
-					<Label id="date" />
+					<Label id="date" />					
 				</View>
 				<Label id="comment"></Label>
 			</View>
-			</View>
+		</View>
 	</TableViewRow>
+
 </Alloy>

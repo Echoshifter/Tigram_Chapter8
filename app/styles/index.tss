@@ -1,7 +1,8 @@
-"Window" : {
+"Window": {
 	backgroundColor: "#fff"
-},
-"Labe" : {
+}
+
+"Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
 	color: "#000",
@@ -10,4 +11,4 @@
 		fontFamily: 'Helvetica Neue'
 	},
 	textAlign: 'center'
-}
+} 
